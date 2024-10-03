@@ -7,7 +7,7 @@ module "linux" {
   allow_extension_operations = local.vm.allow_extension_operations
   data_disks = [
     for i in range(2) : {
-      name                 = "${local.data_disk.name}${random_id.id.hex}${i}"
+      name                 = "${local.data_disk.name}" #${random_id.id.hex}${i}"
       storage_account_type = local.data_disk.storage_account_type
       create_option        = local.data_disk.create_option
       disk_size_gb         = local.data_disk.disk_size_gb
@@ -29,12 +29,12 @@ module "linux" {
     ip_configurations = [
       {
         name = local.network_interface.ip_configurations.name
-        subnet_id = local.network_interface.ip_configurations.subnet_id
-        primary              = true
+        subnet_id = local.subnet01_id
+        primary              = loca.vm.network_interface.ip_configurations.primary
       }
     ]
   }
-  admin_username = "azureuser"
+  admin_username = local.vm.admin_username
   admin_ssh_keys = [
     {
       public_key = local.vm.admin_ssh_keys.public_key
@@ -47,7 +47,7 @@ module "linux" {
   }
   os_simple = local.vm.os.simple
   os_version = local.vm.os.version
-  patch_assement_mode
+  patch_assement_mode = local.vm.os.patch_assement_mode
   size      = local.vm.size
   subnet_id = local.vm.subnet_id
 

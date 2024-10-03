@@ -11,11 +11,14 @@ data "azure_rm_location" "region" {
 }
 
 data "azurerm_subnet" "sn01" {
-  name                 = local.subnet.name
-  virtual_network_name = local.subnet.vpc.name
+  name                 = local.ds_sn01.name
+  virtual_network_name = local.ds_sn01.vpc_name
   resource_group_name  = data.azurerm_resource_group.name
 }
 
-output "id" {
-  value = data.azurerm_resource_group.example.id
+data "azurerm_subnet" "sn02" {
+  name                 = local.ds_sn02.name
+  virtual_network_name = local.ds_sn02.name
+  resource_group_name  = data.azurerm_resource_group.name
 }
+

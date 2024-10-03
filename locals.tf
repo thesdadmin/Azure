@@ -40,11 +40,21 @@ locals {
         os {
             simple = "UbuntuServer"
             version = "20.04"
-            updates = "ImageDefault"
+            patch_assesment_mode = "ImageDefault"
         }
         size = 
         subnet_id = 
         user_data = file(./startup.sh) ## FIX. Create extract from script file and use 
-        
+        admin_username
     }
+    ds_sn01{
+        name = ""
+        vpc_name = ""
+    }
+    ds_sn02{
+        name = ""
+        vpc_name = ""
+    }
+    subnet01_id = data.azurerm_subnet.sn01.id
+    sbunet02_id = data.azurerm_subnet.sn02.id
 }
